@@ -29,13 +29,17 @@ class GameEngine
       input = get_human_input
       if validate_input(input)
         spot = input.to_i
-        if @board[spot] != "X" && @board[spot] != "O"
+        if check_board_spot_availability(spot)
           @board[spot] = @hum
         else
           spot = nil
         end
       end
     end
+  end
+
+  def check_board_spot_availability(spot)
+    @board[spot] != "X" && @board[spot] != "O"
   end
 
   def validate_input(input)
@@ -54,7 +58,7 @@ class GameEngine
         @board[spot] = @com
       else
         spot = get_best_move(@board, @com)
-        if @board[spot] != "X" && @board[spot] != "O"
+        if check_board_spot_availability(spot)
           @board[spot] = @com
         else
           spot = nil

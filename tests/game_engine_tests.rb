@@ -18,4 +18,9 @@ class GameEngineTest < Minitest::Test
     engine = GameEngine.new
     assert_equal true, engine.validate_input('9')
   end
+
+  def test_check_board_availability_available_spot_is_true
+    engine = GameEngine.new
+    assert_equal true, engine.check_board_spot_availability(0)
+  end
 end
