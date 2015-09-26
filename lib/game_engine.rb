@@ -19,8 +19,13 @@ class GameEngine
       end
       system "clear" or system "cls"
       puts "The user has chosen spot #{human_spot}"
-      puts "The computer has chosen spot #{machine_spot}" if machine_spot
+      if machine_spot
+        puts "The computer has chosen spot #{machine_spot}"
+      else
+        puts ""
+      end
       puts "|_#{@board[0]}_|_#{@board[1]}_|_#{@board[2]}_|\n|_#{@board[3]}_|_#{@board[4]}_|_#{@board[5]}_|\n|_#{@board[6]}_|_#{@board[7]}_|_#{@board[8]}_|\n"
+      puts "Please select your spot."
     end
     puts "Game over"
   end
