@@ -1,3 +1,7 @@
+# This is a hard to beat strategy for a computer controlled player
+# For the first move uses a well-established rule for the first move
+# It expects to yield to a block that will check if the game is finished or not
+# For that yield it will pass the state of the board after a possibe move has been chosen
 class ComputerStrategyHard
   def get_move(board, next_player, com, hum, depth = 0, best_score = {})
     available_spaces = []
@@ -14,12 +18,12 @@ class ComputerStrategyHard
       return 2
     end
 
-    # Perfect strategy when going second use corner if other player choose center
+    # Perfect strategy when going second use corner if other player chooses center
     if available_spaces.length == 8 and (available_spaces.include? "4")
       return 4
     end
 
-    # Perfect strategy when going second use center if other player choose something different
+    # Perfect strategy when going second use center if other player chooses something different
     if available_spaces.length == 8
       return 2
     end
