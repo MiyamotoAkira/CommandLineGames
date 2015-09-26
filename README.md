@@ -19,5 +19,4 @@ The test are located under the tests folder. To run the whole suite
 
 ### Steps taken
 
-Trying to create test for validation of input.
-Need to take the engine of the game out, due to the game.start_game at the end of game.rb
+I have added very small commit, so the description of each commit indicates what is going on.
