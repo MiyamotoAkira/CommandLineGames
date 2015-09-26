@@ -51,7 +51,7 @@ class GameEngine
   end
 
   def check_board_spot_availability(spot)
-    @board[spot] != "X" && @board[spot] != "O"
+    @board[spot] != @com && @board[spot] != @hum
   end
 
   def validate_input(input)
@@ -84,7 +84,7 @@ class GameEngine
     available_spaces = []
     best_move = nil
     board.each do |s|
-      if s != "X" && s != "O"
+      if s != @com && s != @hum
         available_spaces << s
       end
     end
