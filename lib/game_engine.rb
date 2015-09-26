@@ -6,6 +6,7 @@ class GameEngine
   end
 
   def start_game
+    system "clear" or system "cls"
     puts "Welcome to my Tic Tac Toe game"
     puts "|_#{@board[0]}_|_#{@board[1]}_|_#{@board[2]}_|\n|_#{@board[3]}_|_#{@board[4]}_|_#{@board[5]}_|\n|_#{@board[6]}_|_#{@board[7]}_|_#{@board[8]}_|\n"
     puts "Please select your spot."
@@ -14,6 +15,8 @@ class GameEngine
       if !game_is_over(@board) && !tie(@board)
         eval_board
       end
+      system "clear" or system "cls"
+      puts ""
       puts "|_#{@board[0]}_|_#{@board[1]}_|_#{@board[2]}_|\n|_#{@board[3]}_|_#{@board[4]}_|_#{@board[5]}_|\n|_#{@board[6]}_|_#{@board[7]}_|_#{@board[8]}_|\n"
     end
     puts "Game over"
