@@ -7,10 +7,23 @@ class ComputerStrategyHard
         available_spaces << s
       end
     end
-    if available_spaces.include? "4"
+
+    # Perfect strategy when going first means using a corner
+    # The actual corner doesn't matter, as the board will provide symmetrical plays
+    if available_spaces.length == 9
+      return 2
+    end
+
+    # Perfect strategy when going second use corner if other player choose center
+    if available_spaces.length == 8 and (available_spaces.include? "4")
       return 4
     end
 
+    # Perfect strategy when going second use center if other player choose something different
+    if available_spaces.length == 8
+      return 2
+    end
+    
     available_spaces.each do |as|
       board[as.to_i] = com
       if yield board
