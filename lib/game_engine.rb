@@ -8,15 +8,18 @@ class GameEngine
   def start_game
     system "clear" or system "cls"
     puts "Welcome to my Tic Tac Toe game"
+    puts ""
     puts "|_#{@board[0]}_|_#{@board[1]}_|_#{@board[2]}_|\n|_#{@board[3]}_|_#{@board[4]}_|_#{@board[5]}_|\n|_#{@board[6]}_|_#{@board[7]}_|_#{@board[8]}_|\n"
     puts "Please select your spot."
     until game_is_over(@board) || tie(@board)
-      get_human_spot
+      human_spot = get_human_spot
+      machine_spot = nil
       if !game_is_over(@board) && !tie(@board)
-        eval_board
+        machine_spot = eval_board
       end
       system "clear" or system "cls"
-      puts ""
+      puts "The user has chosen spot #{human_spot}"
+      puts "The computer has chosen spot #{machine_spot}" if machine_spot
       puts "|_#{@board[0]}_|_#{@board[1]}_|_#{@board[2]}_|\n|_#{@board[3]}_|_#{@board[4]}_|_#{@board[5]}_|\n|_#{@board[6]}_|_#{@board[7]}_|_#{@board[8]}_|\n"
     end
     puts "Game over"
@@ -39,6 +42,7 @@ class GameEngine
         end
       end
     end
+    spot
   end
 
   def check_board_spot_availability(spot)
@@ -68,6 +72,7 @@ class GameEngine
         end
       end
     end
+    spot
   end
 
   def get_best_move(board, next_player, depth = 0, best_score = {})
