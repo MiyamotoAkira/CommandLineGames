@@ -4,7 +4,7 @@ require_relative 'test_helper'
 require_relative '../lib/game_engine'
 require_relative '../lib/computer_strategy_hard'
 
-class GameEngineTest < Minitest::Test
+class ComputerStrategyHardTest < Minitest::Test
   def setup
     @corners = [0,2,6,8]
   end
@@ -16,7 +16,7 @@ class GameEngineTest < Minitest::Test
   end
 
   def test_get_move_second_move_no_center_chosen_center
-    test_board = ["0", "1", "O", "3", "4", "5", "6", "7", "8"]
+    test_board = ["0", "1", "X", "3", "4", "5", "6", "7", "8"]
     computer = ComputerStrategyHard.new
     assert_equal 4, computer.get_move(test_board, 'O', 'O', 'X') { |board| false}
   end
