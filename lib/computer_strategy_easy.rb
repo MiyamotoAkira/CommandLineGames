@@ -4,13 +4,18 @@
 # It expects to yield to a block that will check if the game is finished or not
 # For that yield it will pass the state of the board after a possibe move has been chosen
 class ComputerStrategyEasy
-  def get_move(board, next_player, com, hum)
+  def get_available_spaces(board, com, hum)
     available_spaces = []
     board.each do |s|
       if s != com && s != hum
         available_spaces << s
       end
     end
+    available_spaces
+  end
+  
+  def get_move(board, next_player, com, hum)
+    available_spaces = get_available_spaces(board, com, hum)
 
     possible_move = check_possible_score(board, com, available_spaces, &Proc.new)
 
@@ -32,6 +37,7 @@ class ComputerStrategyEasy
       left_to_assign.each do |cell|
         board[cell.to_i] = player
         if yield board
+          board[as.to_i] = as
           board[cell.to_i] = cell
           return as.to_i
         end
