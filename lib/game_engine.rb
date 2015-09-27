@@ -1,7 +1,8 @@
 require_relative 'computer_strategy_hard'
 
 class GameEngine
-  def initialize
+  def initialize (computer)
+    @computer = computer
     @board = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
     @com = "X"
     @hum = "O"
@@ -68,8 +69,7 @@ class GameEngine
   def eval_board
     spot = nil
     until spot
-      computer = ComputerStrategyHard.new
-      spot = computer.get_move(@board,@com, @com, @hum) {|board| game_is_over(board)}
+      spot = @computer.get_move(@board,@com, @com, @hum) {|board| game_is_over(board)}
       if check_board_spot_availability(spot)
         @board[spot] = @com
       else

@@ -1,6 +1,9 @@
 require_relative 'game_engine'
 require_relative 'game_menu'
 require_relative 'game_io'
+require_relative 'computer_strategy_hard'
+require_relative 'computer_strategy_medium'
+require_relative 'computer_strategy_easy'
 
 class Game
   def initialize
@@ -30,9 +33,21 @@ class Game
     end
     @difficulty_level = option_chosen
   end
+
+  def get_computer_player
+    case @difficulty_level
+    when :easy
+      ComputerStrategyEasy.new
+    when :medium
+      ComputerStrategyMedium.new
+    when :hard
+      ComputerStrategyHard.new
+    end
+  end
   
   def start_game
-    engine = GameEngine.new
+    computer = get_computer_player
+    engine = GameEngine.new computer
     engine.start_game
   end
 end
