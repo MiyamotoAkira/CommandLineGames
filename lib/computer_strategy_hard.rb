@@ -5,7 +5,6 @@
 class ComputerStrategyHard
   def get_move(board, next_player, com, hum)
     available_spaces = []
-    best_move = nil
     board.each do |s|
       if s != com && s != hum
         available_spaces << s
