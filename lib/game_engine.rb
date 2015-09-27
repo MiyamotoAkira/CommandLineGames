@@ -68,7 +68,7 @@ class GameEngine
     spot = nil
     until spot
       computer = ComputerStrategyHard.new
-      spot = computer.get_move(@board, @com, @com, @hum) { |board| game_is_over(board)}
+      spot = computer.get_move(@board,@com, @com, @hum) {|board| game_is_over(board)}
       if check_board_spot_availability(spot)
         @board[spot] = @com
       else
