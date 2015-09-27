@@ -30,6 +30,7 @@ class GameEngine
       puts "Please select your spot."
     end
     puts "Game over"
+    gets
   end
 
   def get_human_input
