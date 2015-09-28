@@ -9,6 +9,14 @@ class ComputerStrategyHardTest < Minitest::Test
     @corners = [0,2,6,8]
   end
   
+  def test_check_treatening_found_board_left_as_started
+    test_board = ["O", "1", "2", "3", "X", "5", "6", "7", "8"]
+    computer = ComputerStrategyHard.new
+    engine = GameEngine.new computer
+    computer.get_move(test_board, 'O','O', 'X') {|board| engine.game_is_over(board)}
+    assert_equal 7, (computer.get_available_spaces(test_board, 'O', 'X')).length  
+  end
+
   def test_get_move_first_move_no_center_chosen_center
     test_board = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
     computer = ComputerStrategyHard.new

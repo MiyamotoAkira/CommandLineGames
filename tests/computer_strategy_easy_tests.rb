@@ -11,8 +11,7 @@ class ComputerStrategyEasyTest < Minitest::Test
     computer = ComputerStrategyEasy.new
     engine = GameEngine.new computer
     computer.get_move(test_board, 'O','O', 'X') {|board| engine.game_is_over(board)}
-    assert_equal 7, (computer.get_available_spaces(test_board, 'O', 'X')).length
-    
+    assert_equal 7, (computer.get_available_spaces(test_board, 'O', 'X')).length    
   end
   
   def test_get_move_first_move_no_center_random_chosen
