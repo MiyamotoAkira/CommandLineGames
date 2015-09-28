@@ -15,7 +15,7 @@ Run the game in lib/game.rb
 
 ### Tests
 
-The test are located under the tests folder. To run the whole suite
+The test are located under the tests folder. To run the whole suite you can just call 'rake' from the top folder. You can also get the test coverage using 'rake coverage'
 
 ### Steps taken
 
