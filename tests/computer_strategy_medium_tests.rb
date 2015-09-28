@@ -12,7 +12,8 @@ class ComputerStrategyMediumTest < Minitest::Test
   def test_check_treatening_found_board_left_as_started
     test_board = ["O", "1", "2", "3", "X", "5", "6", "7", "8"]
     computer = ComputerStrategyMedium.new
-    engine = GameEngine.new computer
+    mock = Minitest::Mock.new
+    engine = GameEngine.new(computer, mock)
     computer.get_move(test_board, 'O', 'X') {|board| engine.game_is_over(board)}
     assert_equal 7, (computer.get_available_spaces(test_board, 'O', 'X')).length  
   end
@@ -38,21 +39,24 @@ class ComputerStrategyMediumTest < Minitest::Test
   def test_get_move_player_is_ready_to_score_blocks
     test_board = ["X", "1", "O", "3", "X", "5", "6", "7", "8"]
     computer = ComputerStrategyMedium.new
-    engine = GameEngine.new computer
+    mock = Minitest::Mock.new
+    engine = GameEngine.new(computer, mock)
     assert_equal 8, computer.get_move(test_board, 'O', 'X') {|board| engine.game_is_over(board)}
   end
 
   def test_get_move_computer_is_ready_to_score_score
     test_board = ["X", "X", "O", "3", "X", "5", "6", "7", "O"]
     computer = ComputerStrategyMedium.new
-    engine = GameEngine.new computer
+    mock = Minitest::Mock.new
+    engine = GameEngine.new(computer, mock)
     assert_equal 5, computer.get_move(test_board, 'O', 'X') {|board| engine.game_is_over(board)}
   end
 
   def test_get_move_player_no_threatening_no_fork_available_use_threatening
     test_board = ["O", "1", "2", "3", "X", "5", "6", "7", "8"]
     computer = ComputerStrategyMedium.new
-    engine = GameEngine.new computer
+    mock = Minitest::Mock.new
+    engine = GameEngine.new(computer, mock)
     assert_includes [0,1,2,3,5,6,7,8], computer.get_move(test_board, 'O', 'X') {|board| engine.game_is_over(board)}
   end
 

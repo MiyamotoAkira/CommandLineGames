@@ -4,11 +4,12 @@ require_relative 'game_io'
 require_relative 'computer_strategy_hard'
 require_relative 'computer_strategy_medium'
 require_relative 'computer_strategy_easy'
+require_relative 'human_player'
 
 class Game
   def initialize
-    @difficulty_level = :hard
-    @players = :humandcomp
+    @player1 = :human
+    @player2 = :human
   end
   
   def show_menu
@@ -20,21 +21,12 @@ class Game
       case option_chosen
       when :start
         start_game
-      when :difficulty
-        show_difficulty
-      when :players
-        show_players
+      when :player1
+        @player1 = show_players
+      when :player2
+        @player2 = show_players
       end
     end
-  end
-  
-  def show_difficulty
-    @menu.show_difficulty_menu
-    option_chosen = :unknown
-    while option_chosen == :unknown
-      option_chosen = @menu.get_option_difficulty
-    end
-    @difficulty_level = option_chosen
   end
 
   def show_players
@@ -43,11 +35,13 @@ class Game
     while option_chosen == :unknown
       option_chosen = @menu.get_option_players
     end
-    @players = option_chosen
+    option_chosen
   end
 
-  def get_computer_player
-    case @difficulty_level
+  def get_player player
+    case player
+    when :human
+      HumanPlayer.new GameIO.new
     when :easy
       ComputerStrategyEasy.new
     when :medium
@@ -58,8 +52,9 @@ class Game
   end
   
   def start_game
-    computer = get_computer_player
-    engine = GameEngine.new computer
+    player1 = get_player @player1
+    player2 = get_player @player2
+    engine = GameEngine.new player1, player2
     engine.start_game
   end
 end

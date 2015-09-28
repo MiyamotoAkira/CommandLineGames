@@ -1,11 +1,10 @@
-require_relative 'computer_strategy_hard'
-
 class GameEngine
-  def initialize (computer)
-    @computer = computer
+  def initialize (player1, player2)
+    @player1 = player1
+    @player2 = player2
     @board = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
-    @com = "X"
-    @hum = "O"
+    @player2_mark = "X"
+    @player1_mark = "O"
   end
 
   def start_game
@@ -15,15 +14,15 @@ class GameEngine
     puts "|_#{@board[0]}_|_#{@board[1]}_|_#{@board[2]}_|\n|_#{@board[3]}_|_#{@board[4]}_|_#{@board[5]}_|\n|_#{@board[6]}_|_#{@board[7]}_|_#{@board[8]}_|\n"
     puts "Please select your spot."
     until game_is_over(@board) || tie(@board)
-      human_spot = get_human_spot
-      machine_spot = nil
+      player1_spot = get_player_spot(@player1, @player1_mark)
+      player2_spot = nil
       if !game_is_over(@board) && !tie(@board)
-        machine_spot = eval_board
+        player2_spot = get_player_spot(@player2, @player2_mark)
       end
       system "clear" or system "cls"
-      puts "The user has chosen spot #{human_spot}"
-      if machine_spot
-        puts "The computer has chosen spot #{machine_spot}"
+      puts "Player 1  has chosen spot #{player1_spot}"
+      if player2_spot
+        puts "Player 2 has chosen spot #{player2_spot}"
       else
         puts ""
       end
@@ -34,21 +33,15 @@ class GameEngine
     gets
   end
 
-  def get_human_input
-    gets.chomp
-  end
 
-  def get_human_spot
+  def get_player_spot (player, player_mark)
     spot = nil
     until spot
-      input = get_human_input
-      if validate_input(input)
-        spot = input.to_i
-        if check_board_spot_availability(spot)
-          @board[spot] = @hum
-        else
-          spot = nil
-        end
+      spot = player.get_move(@board, @player1_mark, @player2_mark) {|board| game_is_over(board)}
+      if check_board_spot_availability(spot)
+        @board[spot] = player_mark
+      else
+        spot = nil
       end
     end
     spot
@@ -56,27 +49,6 @@ class GameEngine
 
   def check_board_spot_availability(spot)
     @board[spot] != @com && @board[spot] != @hum
-  end
-
-  def validate_input(input)
-    if input =~ /^[0-9]{1}$/
-      true
-    else
-      false
-    end
-  end
-
-  def eval_board
-    spot = nil
-    until spot
-      spot = @computer.get_move(@board,@com, @com, @hum) {|board| game_is_over(board)}
-      if check_board_spot_availability(spot)
-        @board[spot] = @com
-      else
-        spot = nil
-      end
-    end
-    spot
   end
 
   def game_is_over(b)

@@ -13,18 +13,18 @@ class GameMenuTest < Minitest::Test
     assert_equal :start, menu.get_option_main
   end
 
-  def test_get_option_main_2_is_difficulty
+  def test_get_option_main_2_is_player1
     mockedIO = Minitest::Mock.new
     mockedIO.expect(:get_input_as_int, 2)
     menu = GameMenu.new mockedIO
-    assert_equal :difficulty, menu.get_option_main
+    assert_equal :player1, menu.get_option_main
   end
   
-  def test_get_option_main_3_is_players
+  def test_get_option_main_3_is_player2
     mockedIO = Minitest::Mock.new
     mockedIO.expect(:get_input_as_int, 3)
     menu = GameMenu.new mockedIO
-    assert_equal :players, menu.get_option_main
+    assert_equal :player2, menu.get_option_main
   end
 
   def test_get_option_main_9_is_exit
@@ -34,45 +34,31 @@ class GameMenuTest < Minitest::Test
     assert_equal :exit, menu.get_option_main
   end
 
-  def test_get_option_players_1_is_2_humans
+  def test_get_option_players_1_is_human
     mockedIO = Minitest::Mock.new
     mockedIO.expect(:get_input_as_int, 1)
     menu = GameMenu.new mockedIO
-    assert_equal :twohum, menu.get_option_players
+    assert_equal :human, menu.get_option_players
   end
 
-  def test_get_option_players_2_is_2_comp
+  def test_get_option_players_2_is_easy
     mockedIO = Minitest::Mock.new
     mockedIO.expect(:get_input_as_int, 2)
     menu = GameMenu.new mockedIO
-    assert_equal :twocomp, menu.get_option_players
+    assert_equal :easy, menu.get_option_players
   end
   
-  def test_get_option_players_3_is_human_and_comp
-    mockedIO = Minitest::Mock.new
-    mockedIO.expect(:get_input_as_int, 9)
-    menu = GameMenu.new mockedIO
-    assert_equal :humandcomp, menu.get_option_players
-  end
-
-  def test_get_option_difficulty_1_is_hard
-    mockedIO = Minitest::Mock.new
-    mockedIO.expect(:get_input_as_int, 1)
-    menu = GameMenu.new mockedIO
-    assert_equal :hard, menu.get_option_difficulty
-  end
-  
-  def test_get_option_difficulty_2_is_medium
-    mockedIO = Minitest::Mock.new
-    mockedIO.expect(:get_input_as_int, 2)
-    menu = GameMenu.new mockedIO
-    assert_equal :medium, menu.get_option_difficulty
-  end
-  
-  def test_get_option_difficulty_3_is_easy
+  def test_get_option_players_3_is_medium
     mockedIO = Minitest::Mock.new
     mockedIO.expect(:get_input_as_int, 3)
     menu = GameMenu.new mockedIO
-    assert_equal :easy, menu.get_option_difficulty
+    assert_equal :medium, menu.get_option_players
+  end
+
+  def test_get_option_players_4_is_hard
+    mockedIO = Minitest::Mock.new
+    mockedIO.expect(:get_input_as_int, 4)
+    menu = GameMenu.new mockedIO
+    assert_equal :hard, menu.get_option_players
   end
 end
