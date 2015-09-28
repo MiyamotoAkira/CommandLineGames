@@ -1,4 +1,4 @@
-class ComputerStrategyBase
+module ComputerStrategyBase
   def get_available_spaces(board, this_players_mark, other_players_mark)
     available_spaces = []
     board.each do |s|

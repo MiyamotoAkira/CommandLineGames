@@ -5,7 +5,8 @@ require_relative 'computer_strategy_base'
 # Unlike the hard strategy it will not try to fork. Unlike the medium strategy it will not block
 # It expects to yield to a block that will check if the game is finished or not
 # For that yield it will pass the state of the board after a possibe move has been chosen
-class ComputerStrategyEasy < ComputerStrategyBase
+class ComputerStrategyEasy
+  include ComputerStrategyBase
   
   def get_move(board, this_players_mark, other_players_mark)
     available_spaces = get_available_spaces(board, this_players_mark, other_players_mark)
