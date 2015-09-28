@@ -1,8 +1,8 @@
 class ComputerStrategyBase
-    def get_available_spaces(board, com, hum)
+  def get_available_spaces(board, this_players_mark, other_players_mark)
     available_spaces = []
     board.each do |s|
-      if s != com && s != hum
+      if s != this_players_mark && s != other_players_mark
         available_spaces << s
       end
     end

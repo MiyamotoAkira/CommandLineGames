@@ -7,14 +7,14 @@ require_relative 'computer_strategy_base'
 # For that yield it will pass the state of the board after a possibe move has been chosen
 class ComputerStrategyEasy < ComputerStrategyBase
   
-  def get_move(board, next_player, com, hum)
-    available_spaces = get_available_spaces(board, com, hum)
+  def get_move(board, this_players_mark, other_players_mark)
+    available_spaces = get_available_spaces(board, this_players_mark, other_players_mark)
 
-    possible_move = check_possible_score(board, com, available_spaces, &Proc.new)
+    possible_move = check_possible_score(board, this_players_mark, available_spaces, &Proc.new)
 
     return possible_move if possible_move
 
-    possible_move = check_threatening(board, com, available_spaces, &Proc.new)
+    possible_move = check_threatening(board, this_players_mark, available_spaces, &Proc.new)
 
     return possible_move if possible_move
     

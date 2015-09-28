@@ -8,6 +8,7 @@ require_relative 'computer_strategy_easy'
 class Game
   def initialize
     @difficulty_level = :hard
+    @players = :humandcomp
   end
   
   def show_menu
@@ -21,6 +22,8 @@ class Game
         start_game
       when :difficulty
         show_difficulty
+      when :players
+        show_players
       end
     end
   end
@@ -32,6 +35,15 @@ class Game
       option_chosen = @menu.get_option_difficulty
     end
     @difficulty_level = option_chosen
+  end
+
+  def show_players
+    @menu.show_players_menu
+    option_chosen = :unknown
+    while option_chosen == :unknown
+      option_chosen = @menu.get_option_players
+    end
+    @players = option_chosen
   end
 
   def get_computer_player
