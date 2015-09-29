@@ -10,6 +10,7 @@ class Game
   def initialize
     @player1 = :human
     @player2 = :human
+    @marks = { player1_mark: 'O', player2_mark: 'X' }
   end
   
   def show_menu
@@ -25,6 +26,8 @@ class Game
         @player1 = show_players
       when :player2
         @player2 = show_players
+      when :marks
+        show_marks
       end
     end
   end
@@ -37,6 +40,18 @@ class Game
     end
     option_chosen
   end
+
+  def show_marks
+    @menu.show_marks_menu
+    option_chosen = :unknown
+    while option_chosen == :unknown
+      option_chosen = @menu.get_option_marks
+    end
+    puts "Introduce new mark:"
+    io = GameIO.new
+    new_mark = io.get_input
+    @marks[option_chosen] = new_mark
+  end    
 
   def get_player player
     case player
@@ -54,7 +69,7 @@ class Game
   def start_game
     player1 = get_player @player1
     player2 = get_player @player2
-    engine = GameEngine.new player1, player2
+    engine = GameEngine.new player1, player2, @marks
     engine.start_game
   end
 end

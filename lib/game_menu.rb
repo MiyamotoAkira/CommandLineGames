@@ -10,6 +10,7 @@ class GameMenu
     puts "1 - start a game"
     puts "2 - Select player 1"
     puts "3 - Select player 2"
+    puts "4 - Change marks"
     puts "9 - Exit the game"
   end
 
@@ -22,6 +23,25 @@ class GameMenu
     puts "4 - Computer Hard"
   end
 
+  def show_marks_menu
+    system "clear" or system "cls"
+    puts "Select an option:"
+    puts "1 - Change player 1 mark"
+    puts "2 - Change player 2 mark"
+  end
+
+  def get_option_marks
+    input = @io.get_input_as_int
+    case input
+    when 1
+      :player1_mark
+    when 2
+      :player2_mark
+    else
+      :unknown
+    end
+  end
+  
   def get_option_main
     input = @io.get_input_as_int
     case input
@@ -31,12 +51,15 @@ class GameMenu
       :player1
     when 3
       :player2
+    when 4
+      :marks
     when 9
       :exit
     else
       :unknown
     end
   end
+
 
   def get_option_players
     input = @io.get_input_as_int

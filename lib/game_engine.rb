@@ -1,10 +1,10 @@
 class GameEngine
-  def initialize (player1, player2)
+  def initialize (player1, player2, marks)
     @player1 = player1
     @player2 = player2
     @board = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
-    @player2_mark = "X"
-    @player1_mark = "O"
+    @player1_mark = marks[:player1_mark]
+    @player2_mark = marks[:player2_mark]
   end
 
   def start_game
@@ -48,7 +48,7 @@ class GameEngine
   end
 
   def check_board_spot_availability(spot)
-    @board[spot] != @com && @board[spot] != @hum
+    @board[spot] != @player1_mark && @board[spot] != @player2_mark
   end
 
   def game_is_over(b)

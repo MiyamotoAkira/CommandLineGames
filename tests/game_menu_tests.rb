@@ -27,6 +27,13 @@ class GameMenuTest < Minitest::Test
     assert_equal :player2, menu.get_option_main
   end
 
+  def test_get_option_main_4_is_marks
+    mockedIO = Minitest::Mock.new
+    mockedIO.expect(:get_input_as_int, 4)
+    menu = GameMenu.new mockedIO
+    assert_equal :marks, menu.get_option_main
+  end
+
   def test_get_option_main_9_is_exit
     mockedIO = Minitest::Mock.new
     mockedIO.expect(:get_input_as_int, 9)
