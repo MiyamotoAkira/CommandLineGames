@@ -76,4 +76,24 @@ class GameMenu
       :unknown
     end
   end
+
+  def get_mark
+    new_mark = nil
+    until new_mark
+      puts "Introduce new mark:"
+      new_mark = @io.get_input
+      unless validate_mark(new_mark)
+        new_mark = nil
+      end
+    end
+    new_mark
+  end
+
+  def validate_mark possible_mark
+    if /[0-9\|_]|.{2}/ =~ possible_mark
+      false
+    else
+      true
+    end
+  end
 end

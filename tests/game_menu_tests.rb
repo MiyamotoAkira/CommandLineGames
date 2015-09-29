@@ -68,4 +68,41 @@ class GameMenuTest < Minitest::Test
     menu = GameMenu.new mockedIO
     assert_equal :hard, menu.get_option_players
   end
+
+  def test_validate_mark_number_passed_not_valid
+    mockedIO = Minitest::Mock.new
+    menu = GameMenu.new mockedIO
+    assert_equal false, menu.validate_mark("9")
+  end
+
+  def test_validate_mark_underscore_passed_not_valid
+    mockedIO = Minitest::Mock.new
+    menu = GameMenu.new mockedIO
+    assert_equal false, menu.validate_mark("_")
+  end
+
+  def test_validate_mark_vertical_passed_not_valid
+    mockedIO = Minitest::Mock.new
+    menu = GameMenu.new mockedIO
+    assert_equal false, menu.validate_mark("|")
+  end
+
+  def test_validate_mark_multiple_characters_passed_not_valid
+    mockedIO = Minitest::Mock.new
+    menu = GameMenu.new mockedIO
+    assert_equal false, menu.validate_mark("aa")
+  end
+
+  def test_validate_mark_same_as_other_mark_not_valid
+    skip
+    mockedIO = Minitest::Mock.new
+    menu = GameMenu.new mockedIO
+    assert_equal false, menu.validate_mark("9")
+  end
+
+  def test_validate_mark_single_character_not_used_is_valid
+    mockedIO = Minitest::Mock.new
+    menu = GameMenu.new mockedIO
+    assert_equal true,  menu.validate_mark("a")
+  end
 end

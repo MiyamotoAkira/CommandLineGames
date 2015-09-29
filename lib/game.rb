@@ -47,11 +47,9 @@ class Game
     while option_chosen == :unknown
       option_chosen = @menu.get_option_marks
     end
-    puts "Introduce new mark:"
-    io = GameIO.new
-    new_mark = io.get_input
+    new_mark = @menu.get_mark
     @marks[option_chosen] = new_mark
-  end    
+  end
 
   def get_player player
     case player
