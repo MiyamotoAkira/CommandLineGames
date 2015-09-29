@@ -8,29 +8,41 @@ class GameEngine
   end
 
   def start_game
-    system "clear" or system "cls"
+    clear_screen
     puts "Welcome to my Tic Tac Toe game"
     puts ""
-    puts "|_#{@board[0]}_|_#{@board[1]}_|_#{@board[2]}_|\n|_#{@board[3]}_|_#{@board[4]}_|_#{@board[5]}_|\n|_#{@board[6]}_|_#{@board[7]}_|_#{@board[8]}_|\n"
-    puts "Please select your spot."
     until game_is_over(@board) || tie(@board)
+      output_board
+      puts "Please select your spot."
       player1_spot = get_player_spot(@player1, @player1_mark)
       player2_spot = nil
       if !game_is_over(@board) && !tie(@board)
         player2_spot = get_player_spot(@player2, @player2_mark)
       end
-      system "clear" or system "cls"
-      puts "Player 1  has chosen spot #{player1_spot}"
+      clear_screen
+      show_selections player1_spot, player2_spot
+    end
+    output_board
+    puts "Game over"
+    puts "Press a key"
+    gets
+  end
+
+  def show_selections player1_spot, player2_spot
+    puts "Player 1  has chosen spot #{player1_spot}"
       if player2_spot
         puts "Player 2 has chosen spot #{player2_spot}"
       else
         puts ""
       end
-      puts "|_#{@board[0]}_|_#{@board[1]}_|_#{@board[2]}_|\n|_#{@board[3]}_|_#{@board[4]}_|_#{@board[5]}_|\n|_#{@board[6]}_|_#{@board[7]}_|_#{@board[8]}_|\n"
-      puts "Please select your spot."
-    end
-    puts "Game over"
-    gets
+  end
+  
+  def clear_screen
+    system "clear" or system "cls"
+  end
+  
+  def output_board
+    puts "|_#{@board[0]}_|_#{@board[1]}_|_#{@board[2]}_|\n|_#{@board[3]}_|_#{@board[4]}_|_#{@board[5]}_|\n|_#{@board[6]}_|_#{@board[7]}_|_#{@board[8]}_|\n"
   end
 
 
