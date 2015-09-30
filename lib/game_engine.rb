@@ -11,16 +11,16 @@ class GameEngine
     clear_screen
     puts "Welcome to my Tic Tac Toe game"
     puts ""
+    first_player = true
+    previous_move = nil
     until game_is_over(@board) || tie(@board)
       output_board
       puts "Please select your spot."
-      player1_spot = get_player_spot(@player1, @player1_mark)
-      player2_spot = nil
-      if !game_is_over(@board) && !tie(@board)
-        player2_spot = get_player_spot(@player2, @player2_mark)
-      end
+      player, player_mark = change_player first_player
+      player_spot = get_player_spot(player, player_mark)
       clear_screen
-      show_selections player1_spot, player2_spot
+      previous_move = show_selections player_spot, first_player,  previous_move
+      first_player = !first_player
     end
     output_board
     puts "Game over"
@@ -28,13 +28,24 @@ class GameEngine
     gets
   end
 
-  def show_selections player1_spot, player2_spot
-    puts "Player 1  has chosen spot #{player1_spot}"
-      if player2_spot
-        puts "Player 2 has chosen spot #{player2_spot}"
-      else
-        puts ""
-      end
+  def change_player firstPlayer
+    if firstPlayer == true
+      [@player1, @player1_mark]
+    else
+      [@player2, @player2_mark]
+    end
+  end
+  
+  def show_selections player_spot, first_player, previous_move
+    if previous_move
+      puts previous_move
+    else
+      puts ""
+    end
+    number = first_player ? "1" : "2"
+    sentence = "Player #{number}  has chosen spot #{player_spot}"
+    puts sentence
+    sentence
   end
   
   def clear_screen
