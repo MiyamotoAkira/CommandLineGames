@@ -14,7 +14,7 @@ class ComputerStrategyHardTest < Minitest::Test
     test_board = ["O", "1", "2", "3", "X", "5", "6", "7", "8"]
     computer = ComputerStrategyHard.new
     mock = Minitest::Mock.new
-    engine = GameEngine.new(computer, mock, @marks)
+    engine = GameEngine.new(computer, mock, @marks, mock)
     computer.get_move(test_board, 'O', 'X') {|board| engine.game_is_over(board)}
     assert_equal 7, (computer.get_available_spaces(test_board, 'O', 'X')).length  
   end
@@ -41,7 +41,7 @@ class ComputerStrategyHardTest < Minitest::Test
     test_board = ["X", "1", "O", "3", "X", "5", "6", "7", "8"]
     computer = ComputerStrategyHard.new
     mock = Minitest::Mock.new
-    engine = GameEngine.new(computer, mock, @marks)
+    engine = GameEngine.new(computer, mock, @marks, mock)
     assert_equal 8, computer.get_move(test_board, 'O', 'X') {|board| engine.game_is_over(board)}
   end
 
@@ -49,7 +49,7 @@ class ComputerStrategyHardTest < Minitest::Test
     test_board = ["X", "X", "O", "3", "X", "5", "6", "7", "O"]
     computer = ComputerStrategyHard.new
     mock = Minitest::Mock.new
-    engine = GameEngine.new(computer, mock, @marks)
+    engine = GameEngine.new(computer, mock, @marks, mock)
     assert_equal 5, computer.get_move(test_board, 'O', 'X') {|board| engine.game_is_over(board)}
   end
 
@@ -57,7 +57,7 @@ class ComputerStrategyHardTest < Minitest::Test
     test_board = ["O", "X", "O", "3", "4", "X", "6", "7", "X"]
     computer = ComputerStrategyHard.new
     mock = Minitest::Mock.new
-    engine = GameEngine.new(computer, mock, @marks)
+    engine = GameEngine.new(computer, mock, @marks, mock)
     assert_equal 6, computer.get_move(test_board, 'O', 'X') {|board| engine.game_is_over(board)}
   end
 
@@ -65,7 +65,7 @@ class ComputerStrategyHardTest < Minitest::Test
     test_board = ["O", "1", "2", "3", "X", "5", "6", "7", "8"]
     computer = ComputerStrategyHard.new
     mock = Minitest::Mock.new
-    engine = GameEngine.new(computer, mock, @marks)
+    engine = GameEngine.new(computer, mock, @marks, mock)
     assert_equal 1, computer.get_move(test_board, 'O', 'X') {|board| engine.game_is_over(board)}
   end
 

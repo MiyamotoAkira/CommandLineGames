@@ -1,31 +1,28 @@
 class GameEngine
-  def initialize (player1, player2, marks)
+  def initialize (player1, player2, marks, io)
     @player1 = player1
     @player2 = player2
     @board = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
     @player1_mark = marks[:player1_mark]
     @player2_mark = marks[:player2_mark]
+    @io = io
   end
 
   def start_game
-    clear_screen
-    puts "Welcome to my Tic Tac Toe game"
-    puts ""
+    @io.clear_screen
+    @io.welcome
     first_player = true
-    previous_move = nil
     until game_is_over(@board) || tie(@board)
-      output_board
-      puts "Please select your spot."
+      @io.output_board @board
+      @io.select_spot_info
       player, player_mark = change_player first_player
       player_spot = get_player_spot(player, player_mark)
-      clear_screen
-      previous_move = show_selections player_spot, first_player,  previous_move
+      @io.clear_screen
+      @io.show_selections player_spot, first_player
       first_player = !first_player
     end
-    output_board
-    puts "Game over"
-    puts "Press a key"
-    gets
+    @io.output_board @board
+    @io.end_of_game
   end
 
   def change_player firstPlayer
@@ -34,28 +31,7 @@ class GameEngine
     else
       [@player2, @player2_mark]
     end
-  end
-  
-  def show_selections player_spot, first_player, previous_move
-    if previous_move
-      puts previous_move
-    else
-      puts ""
-    end
-    number = first_player ? "1" : "2"
-    sentence = "Player #{number}  has chosen spot #{player_spot}"
-    puts sentence
-    sentence
-  end
-  
-  def clear_screen
-    system "clear" or system "cls"
-  end
-  
-  def output_board
-    puts "|_#{@board[0]}_|_#{@board[1]}_|_#{@board[2]}_|\n|_#{@board[3]}_|_#{@board[4]}_|_#{@board[5]}_|\n|_#{@board[6]}_|_#{@board[7]}_|_#{@board[8]}_|\n"
-  end
-
+  end    
 
   def get_player_spot (player, player_mark)
     spot = nil

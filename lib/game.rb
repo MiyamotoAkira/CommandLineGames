@@ -67,7 +67,7 @@ class Game
   def start_game
     player1 = get_player @player1
     player2 = get_player @player2
-    engine = GameEngine.new player1, player2, @marks
+    engine = GameEngine.new player1, player2, @marks, GameIO.new
     engine.start_game
   end
 end

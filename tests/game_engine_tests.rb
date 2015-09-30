@@ -10,7 +10,7 @@ class GameEngineTest < Minitest::Test
   
   def test_check_board_availability_available_spot_is_true
     mock = Minitest::Mock.new
-    engine = GameEngine.new(mock, mock, @marks)
+    engine = GameEngine.new(mock, mock, @marks, mock)
     assert_equal true, engine.check_board_spot_availability(0)
   end
 end
