@@ -63,6 +63,6 @@ class GameEngine
   end
 
   def tie(b)
-    b.all? { |s| s == "X" || s == "O" }
+    b.all? { |s| s == @player1_mark || s == @player2_mark }
   end
 end
