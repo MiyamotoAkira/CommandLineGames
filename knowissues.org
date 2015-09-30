@@ -1,0 +1,7 @@
+# Issues
+## Found by the client
+  - [ ] The game skips turns on bad user input.
+  - [ ] Game supposed to be "Hard". Unbeatable
+  - [ ] User messages are lacking. They’re unclear.
+  - [ ] Spot chosen and board are unclear
+  - [ ] Computer picks spot without notification

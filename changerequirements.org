@@ -1,0 +1,11 @@
+# User requirements
+ - [ ] Allow the user to select the level of difficulty 
+      (“easy” means the computer can easily be beaten, 
+       “medium” means it can be beaten but only with a series of intelligent moves
+       “hard” means the computer is unbeatable).
+ - [ ] Allow users to choose game type:
+   human v. human
+   computer v. computer
+   human v. computer
+ - [ ] Allow user to choose which player goes first.
+ - [ ] Allow the user to decide  “markers” (default it’s “X” and “O”).
