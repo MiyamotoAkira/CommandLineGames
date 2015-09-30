@@ -9,13 +9,13 @@ class ComputerStrategyEasy
   include ComputerStrategyBase
   
   def get_move(board, this_players_mark, other_players_mark)
-    available_spaces = get_available_spaces(board, this_players_mark, other_players_mark)
+    available_spaces = board.get_available_spaces
 
-    possible_move = check_possible_score(board, this_players_mark, available_spaces, &Proc.new)
+    possible_move = check_possible_score(board, this_players_mark)
 
     return possible_move if possible_move
 
-    possible_move = check_threatening(board, this_players_mark, available_spaces, &Proc.new)
+    possible_move = check_threatening(board, this_players_mark)
 
     return possible_move if possible_move
     

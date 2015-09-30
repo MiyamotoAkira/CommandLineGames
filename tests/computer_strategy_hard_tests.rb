@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 gem 'minitest', '>= 5.0.0'
 require_relative 'test_helper'
-require_relative '../lib/game_engine'
+require_relative '../lib/board'
 require_relative '../lib/computer_strategy_hard'
 
 class ComputerStrategyHardTest < Minitest::Test
@@ -11,62 +11,71 @@ class ComputerStrategyHardTest < Minitest::Test
   end
   
   def test_check_treatening_found_board_left_as_started
-    test_board = ["O", "1", "2", "3", "X", "5", "6", "7", "8"]
+    test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
+    test_board.occupy_spot 1, @marks[:player1_mark]
+    test_board.occupy_spot 4, @marks[:player2_mark]
     computer = ComputerStrategyHard.new
-    mock = Minitest::Mock.new
-    engine = GameEngine.new(computer, mock, @marks, mock)
-    computer.get_move(test_board, 'O', 'X') {|board| engine.game_is_over(board)}
-    assert_equal 7, (computer.get_available_spaces(test_board, 'O', 'X')).length  
+    computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
+    assert_equal 7, test_board.get_available_spaces.length
   end
 
   def test_get_move_first_move_no_center_chosen_center
-    test_board = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
+    test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
     computer = ComputerStrategyHard.new
-    assert_includes @corners, computer.get_move(test_board, 'O', 'X') { |board| false}
+    assert_includes @corners, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
 
   def test_get_move_second_move_no_center_chosen_center
-    test_board = ["0", "1", "X", "3", "4", "5", "6", "7", "8"]
+    test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
+    test_board.occupy_spot 2, @marks[:player2_mark]
     computer = ComputerStrategyHard.new
-    assert_equal 4, computer.get_move(test_board, 'O', 'X') { |board| false}
+    assert_equal 4, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
   
   def test_get_move_second_move_center_is_occupied_use_corner
-    test_board = ["0", "1", "2", "3", "X", "5", "6", "7", "8"]
+    test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
+    test_board.occupy_spot 4, @marks[:player2_mark]
     computer = ComputerStrategyHard.new
-    assert_includes @corners, computer.get_move(test_board, 'O', 'X') { |board| false}
+    assert_includes @corners, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
 
   def test_get_move_player_is_ready_to_score_blocks
-    test_board = ["X", "1", "O", "3", "X", "5", "6", "7", "8"]
+    test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
+    test_board.occupy_spot 0, @marks[:player2_mark]
+    test_board.occupy_spot 2, @marks[:player1_mark]
+    test_board.occupy_spot 4, @marks[:player2_mark]
     computer = ComputerStrategyHard.new
-    mock = Minitest::Mock.new
-    engine = GameEngine.new(computer, mock, @marks, mock)
-    assert_equal 8, computer.get_move(test_board, 'O', 'X') {|board| engine.game_is_over(board)}
+    assert_equal 8, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
 
   def test_get_move_computer_is_ready_to_score_score
-    test_board = ["X", "X", "O", "3", "X", "5", "6", "7", "O"]
+    test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
+    test_board.occupy_spot 0, @marks[:player2_mark]
+    test_board.occupy_spot 1, @marks[:player2_mark]
+    test_board.occupy_spot 2, @marks[:player1_mark]
+    test_board.occupy_spot 4, @marks[:player2_mark]
+    test_board.occupy_spot 8, @marks[:player1_mark]
     computer = ComputerStrategyHard.new
-    mock = Minitest::Mock.new
-    engine = GameEngine.new(computer, mock, @marks, mock)
-    assert_equal 5, computer.get_move(test_board, 'O', 'X') {|board| engine.game_is_over(board)}
+    assert_equal 5, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
 
   def test_get_move_player_no_threatening_fork_available_use_fork
-    test_board = ["O", "X", "O", "3", "4", "X", "6", "7", "X"]
+    test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
+    test_board.occupy_spot 0, @marks[:player1_mark]
+    test_board.occupy_spot 1, @marks[:player2_mark]
+    test_board.occupy_spot 2, @marks[:player1_mark]
+    test_board.occupy_spot 5, @marks[:player2_mark]
+    test_board.occupy_spot 8, @marks[:player2_mark]
     computer = ComputerStrategyHard.new
-    mock = Minitest::Mock.new
-    engine = GameEngine.new(computer, mock, @marks, mock)
-    assert_equal 6, computer.get_move(test_board, 'O', 'X') {|board| engine.game_is_over(board)}
+    assert_equal 6, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
 
   def test_get_move_player_no_threatening_no_fork_available_use_threatening
-    test_board = ["O", "1", "2", "3", "X", "5", "6", "7", "8"]
+    test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
+    test_board.occupy_spot 0, @marks[:player1_mark]
+    test_board.occupy_spot 4, @marks[:player2_mark]
     computer = ComputerStrategyHard.new
-    mock = Minitest::Mock.new
-    engine = GameEngine.new(computer, mock, @marks, mock)
-    assert_equal 1, computer.get_move(test_board, 'O', 'X') {|board| engine.game_is_over(board)}
+    assert_equal 1, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
 
 end

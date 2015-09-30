@@ -7,25 +7,25 @@ require_relative 'computer_strategy_base'
 class ComputerStrategyHard
   include ComputerStrategyBase
   def get_move(board, this_players_mark, other_players_mark)
-    available_spaces = get_available_spaces(board, this_players_mark, other_players_mark)
+    available_spaces = board.get_available_spaces
 
     first_move = select_first_move(available_spaces) if available_spaces.length >= 8
 
     return first_move if first_move
 
-    possible_move = check_possible_score(board, this_players_mark, available_spaces, &Proc.new)
+    possible_move = check_possible_score(board, this_players_mark)
 
     return possible_move if possible_move
 
-    possible_move = check_other_threatening(board, other_players_mark, available_spaces, &Proc.new)
+    possible_move = check_other_threatening(board, other_players_mark)
 
     return possible_move if possible_move
 
-    possible_move = check_possible_fork(board, this_players_mark, available_spaces, &Proc.new)
+    possible_move = check_possible_fork(board, this_players_mark)
 
     return possible_move if possible_move
 
-    possible_move = check_threatening(board, this_players_mark, available_spaces, &Proc.new)
+    possible_move = check_threatening(board, this_players_mark)
 
     return possible_move if possible_move
     

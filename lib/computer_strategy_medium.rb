@@ -8,17 +8,17 @@ require_relative 'computer_strategy_base'
 class ComputerStrategyMedium
   include ComputerStrategyBase
   def get_move(board, this_players_mark, other_players_mark)
-    available_spaces = get_available_spaces(board, this_players_mark, other_players_mark)
+    available_spaces = board.get_available_spaces
 
     first_move = select_first_move(available_spaces) if available_spaces.length >= 8
 
     return first_move if first_move
 
-    possible_move = check_possible_score(board, this_players_mark, available_spaces, &Proc.new)
+    possible_move = check_possible_score(board, this_players_mark)
 
     return possible_move if possible_move
 
-    possible_move = check_other_threatening(board, other_players_mark, available_spaces, &Proc.new)
+    possible_move = check_other_threatening(board, other_players_mark)
 
     return possible_move if possible_move
 
@@ -27,14 +27,15 @@ class ComputerStrategyMedium
 
   end
 
-  def check_possible_score(board, player, available_spaces)
+  def check_possible_score(board, player)
+    available_spaces = board.get_available_spaces
     available_spaces.each do |as|
-      board[as.to_i] = player
-      if yield board
-        board[as.to_i] = as
+      board.occupy_spot as.to_i, player
+      if board.at_least_one_line_the_same
+        board.occupy_spot as.to_i, as
         return as.to_i
       else
-        board[as.to_i] = as
+        board.occupy_spot as.to_i, as
       end
     end
     nil     

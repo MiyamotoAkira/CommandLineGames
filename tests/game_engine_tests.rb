@@ -8,12 +8,6 @@ class GameEngineTest < Minitest::Test
     @marks = {player1_mark: 'O', player2_mark: 'X'}
   end
   
-  def test_check_board_availability_available_spot_is_true
-    mock = Minitest::Mock.new
-    engine = GameEngine.new(mock, mock, @marks, mock)
-    assert_equal true, engine.check_board_spot_availability(0)
-  end
-
   def test_change_player_first_player
     player1 = Object.new
     player2 = Object.new
