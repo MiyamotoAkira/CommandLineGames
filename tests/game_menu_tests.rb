@@ -5,6 +5,19 @@ require_relative '../lib/game_engine'
 require_relative '../lib/game_menu'
 
 class GameMenuTest < Minitest::Test
+  def test_get_option_marks_1_is_player1
+    mockedIO = Minitest::Mock.new
+    mockedIO.expect(:get_input_as_int, 1)
+    menu = GameMenu.new mockedIO
+    assert_equal :player1, menu.get_option_marks
+  end
+  
+  def test_get_option_marks_2_is_player2
+    mockedIO = Minitest::Mock.new
+    mockedIO.expect(:get_input_as_int, 2)
+    menu = GameMenu.new mockedIO
+    assert_equal :player2, menu.get_option_marks
+  end
   
   def test_get_option_main_1_is_start
     mockedIO = Minitest::Mock.new
