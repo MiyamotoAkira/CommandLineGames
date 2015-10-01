@@ -14,10 +14,6 @@ class ComputerStrategyEasy
     possible_move = check_possible_score(board, this_players_mark)
 
     return possible_move if possible_move
-
-    possible_move = check_threatening(board, this_players_mark)
-
-    return possible_move if possible_move
     
     n = rand(0..available_spaces.count)
     return available_spaces[n].to_i
