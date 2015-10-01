@@ -42,4 +42,7 @@ class GameIO
     @previous_move = sentence
   end
 
+  def output_messages messages
+    messages.each {|message| puts message}
+  end
 end

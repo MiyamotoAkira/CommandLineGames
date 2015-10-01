@@ -4,29 +4,35 @@ class GameMenu
   end
   
   def show_main_menu player1, player2
-    system "clear" or system "cls"
-    puts "This is Tic Tac Toe"
-    puts "Select an option:"
-    puts "1 - Start a game"
-    puts "2 - Player 1: #{player1.type}, mark: #{player1.mark}"
-    puts "3 - Player 2: #{player2.type}, mark: #{player2.mark}"
-    puts "9 - Exit the game"
+    @io.clear_screen
+    messages = []
+    messages << "This is Tic Tac Toe"
+    messages << "Select an option:"    
+    messages << "1 - Start a game"
+    messages << "2 - Player 1: #{player1.type}, mark: #{player1.mark}"
+    messages << "3 - Player 2: #{player2.type}, mark: #{player2.mark}"
+    messages << "9 - Exit the game"
+    @io.output_messages messages
   end
 
   def show_player_type_menu
-    system "clear" or system "cls"
-    puts "Select an option:"
-    puts "1 - Human"
-    puts "2 - Computer Easy"
-    puts "3 - Computer Medium"
-    puts "4 - Computer Hard"
+    @io.clear_screen
+    messages = []
+    messages << "Select an option:"
+    messages << "1 - Human"
+    messages << "2 - Computer Easy"
+    messages << "3 - Computer Medium"
+    messages << "4 - Computer Hard"
+    @io.output_messages messages
   end
 
   def show_options_player_change_menu
-    system "clear" or system "cls"
-    puts "Select an option:"
-    puts "1 - Change player type"
-    puts "2 - Change player mark"
+    @io.clear_screen
+    messages = []
+    messages << "Select an option:"
+    messages << "1 - Change player type"
+    messages << "2 - Change player mark"
+    @io.output_messages messages    
   end
 
   def get_option_player_change
