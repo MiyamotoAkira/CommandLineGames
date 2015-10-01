@@ -46,4 +46,8 @@ class ComputerStrategyMedium
       return 4
     end
   end
+
+  def to_s
+    "Computer Medium"
+  end
 end

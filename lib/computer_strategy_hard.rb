@@ -32,4 +32,8 @@ class ComputerStrategyHard
     n = rand(0..available_spaces.count)
     return available_spaces[n].to_i
   end
+
+  def to_s
+    "Computer Hard"
+  end
 end

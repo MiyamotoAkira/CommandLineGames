@@ -3,18 +3,17 @@ class GameMenu
     @io = io
   end
   
-  def show_main_menu
+  def show_main_menu player1, player2
     system "clear" or system "cls"
     puts "This is Tic Tac Toe"
     puts "Select an option:"
-    puts "1 - start a game"
-    puts "2 - Select player 1"
-    puts "3 - Select player 2"
-    puts "4 - Change marks"
+    puts "1 - Start a game"
+    puts "2 - Player 1: #{player1.type}, mark: #{player1.mark}"
+    puts "3 - Player 2: #{player2.type}, mark: #{player2.mark}"
     puts "9 - Exit the game"
   end
 
-  def show_players_menu
+  def show_player_type_menu
     system "clear" or system "cls"
     puts "Select an option:"
     puts "1 - Human"
@@ -23,20 +22,20 @@ class GameMenu
     puts "4 - Computer Hard"
   end
 
-  def show_marks_menu
+  def show_options_player_change_menu
     system "clear" or system "cls"
     puts "Select an option:"
-    puts "1 - Change player 1 mark"
-    puts "2 - Change player 2 mark"
+    puts "1 - Change player type"
+    puts "2 - Change player mark"
   end
 
-  def get_option_marks
+  def get_option_player_change
     input = @io.get_input_as_int
     case input
     when 1
-      :player1
+      :type
     when 2
-      :player2
+      :mark
     else
       :unknown
     end
@@ -51,8 +50,6 @@ class GameMenu
       :player1
     when 3
       :player2
-    when 4
-      :marks
     when 9
       :exit
     else
@@ -61,7 +58,7 @@ class GameMenu
   end
 
 
-  def get_option_players
+  def get_option_player_type
     input = @io.get_input_as_int
     case input
     when 1

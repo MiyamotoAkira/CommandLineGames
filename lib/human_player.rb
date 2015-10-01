@@ -20,4 +20,7 @@ class HumanPlayer
     end
   end
 
+  def to_s
+    "Human"
+  end
 end

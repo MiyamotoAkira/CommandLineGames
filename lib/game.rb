@@ -16,39 +16,39 @@ class Game
     @menu = GameMenu.new GameIO.new
     option_chosen = :unknown
     while option_chosen != :exit
-      @menu.show_main_menu
+      @menu.show_main_menu @players[:player1], @players[:player2]
       option_chosen = @menu.get_option_main
       case option_chosen
       when :start
         start_game
       when :player1
-        show_players :player1
+        show_player_change :player1
       when :player2
-        show_players :player2
-      when :marks
-        show_marks
+        show_player_change :player2
       end
     end
   end
 
-  def show_players player
-    @menu.show_players_menu
+  def show_player_change player
+    @menu.show_options_player_change_menu
     option_chosen = :unknown
     while option_chosen == :unknown
-      option_chosen = @menu.get_option_players
+      option_chosen = @menu.get_option_player_change
     end
-    @players[player].type = get_player option_chosen
+    case option_chosen
+    when :type
+      @menu.show_player_type_menu
+      option_chosen = :unknown
+      while option_chosen == :unknown
+        option_chosen = @menu.get_option_player_type
+      end
+      @players[player].type = get_player option_chosen
+    when :mark
+      new_mark = @menu.get_mark
+      @players[player].mark = new_mark
+    end
   end
 
-  def show_marks
-    @menu.show_marks_menu
-    option_chosen = :unknown
-    while option_chosen == :unknown
-      option_chosen = @menu.get_option_marks
-    end
-    new_mark = @menu.get_mark
-    @players[option_chosen].mark = new_mark
-  end
 
   def get_player type
     case type
