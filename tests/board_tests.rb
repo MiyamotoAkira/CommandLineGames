@@ -3,23 +3,28 @@ gem 'minitest', '>= 5.0.0'
 require_relative 'test_helper'
 require_relative '../lib/board'
 
-class BoardTest < Minitest::Test
+class BoardTest < MiniTest::Test
 
   def setup
     @player1_mark = 'X'
     @player2_mark = 'O'
   end
-  
-  def test_check_board_spot_availability_on_empty_board_is_true
-    board = Board.new @player1_mark, @player2_mark
-    assert_equal true, board.check_board_spot_availability(0)
+
+  [0,1,2,3,4,5,6,7,8].each do |cell|
+    define_method("test_check_board_spot_availability_on_empty_board_is_true_#{cell}") do
+      board = Board.new @player1_mark, @player2_mark
+      assert_equal true, board.check_board_spot_availability(cell)
+    end
   end
 
-  def test_occupy_spot
-    board = Board.new @player1_mark, @player2_mark
-    assert_equal true, board.check_board_spot_availability(0)
-    board.occupy_spot 0, @player1_mark
-    assert_equal false, board.check_board_spot_availability(0)
+  
+  [0,1,2,3,4,5,6,7,8].each do |cell|
+    define_method("test_occupy_spot_#{cell}") do
+      board = Board.new @player1_mark, @player2_mark
+      assert_equal true, board.check_board_spot_availability(cell)
+      board.occupy_spot cell, @player1_mark
+      assert_equal false, board.check_board_spot_availability(cell)
+    end
   end
 
   def test_at_leat_one_line_the_same_starting_state_returns_false
