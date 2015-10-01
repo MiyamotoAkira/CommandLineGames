@@ -34,9 +34,9 @@ class GameMenu
     input = @io.get_input_as_int
     case input
     when 1
-      :player1_mark
+      :player1
     when 2
-      :player2_mark
+      :player2
     else
       :unknown
     end

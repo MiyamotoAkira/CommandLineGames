@@ -1,11 +1,9 @@
 require_relative 'board'
 class GameEngine
-  def initialize (player1, player2, marks, io)
+  def initialize (player1, player2, io)
     @player1 = player1
     @player2 = player2
-    @player1_mark = marks[:player1_mark]
-    @player2_mark = marks[:player2_mark]
-    @board = Board.new @player1_mark, @player2_mark
+    @board = Board.new @player1.mark, @player2.mark
     @io = io
   end
 
@@ -16,8 +14,8 @@ class GameEngine
     until game_is_over || tie
       @io.output_board @board.board_positions
       @io.select_spot_info
-      player, player_mark = change_player first_player
-      player_spot = get_player_spot(player, player_mark)
+      player  = change_player first_player
+      player_spot = get_player_spot(player)
       @io.clear_screen
       @io.show_selections player_spot, first_player
       first_player = !first_player
@@ -28,18 +26,18 @@ class GameEngine
 
   def change_player firstPlayer
     if firstPlayer == true
-      [@player1, @player1_mark]
+      @player1
     else
-      [@player2, @player2_mark]
+      @player2
     end
   end    
 
-  def get_player_spot (player, player_mark)
+  def get_player_spot (player)
     spot = nil
     until spot
-      spot = player.get_move(@board, @player1_mark, @player2_mark) {|board| game_is_over(board)}
+      spot = player.get_move(@board, @player1.mark, @player2.mark) 
       if @board.check_board_spot_availability(spot)
-        @board.occupy_spot spot, player_mark
+        @board.occupy_spot spot, player.mark
       else
         spot = nil
       end
