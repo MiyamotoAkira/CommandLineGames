@@ -1,6 +1,5 @@
 require_relative 'game_engine'
 require_relative 'game_menu'
-require_relative 'game_io'
 require_relative 'computer_strategy_hard'
 require_relative 'computer_strategy_medium'
 require_relative 'computer_strategy_easy'
@@ -8,12 +7,13 @@ require_relative 'human_player'
 require_relative 'player'
 
 class Game
-  def initialize
+  def initialize io
     @players = {player1: Player.new(get_player(:human), 'X'), player2: Player.new(get_player(:human), 'O')}
+    @io = io
   end
   
   def show_menu
-    @menu = GameMenu.new GameIO.new
+    @menu = GameMenu.new @io
     option_chosen = :unknown
     while option_chosen != :exit
       @menu.show_main_menu @players[:player1], @players[:player2]
@@ -53,7 +53,7 @@ class Game
   def get_player type
     case type
     when :human
-      HumanPlayer.new GameIO.new
+      HumanPlayer.new @io
     when :easy
       ComputerStrategyEasy.new
     when :medium
@@ -64,10 +64,7 @@ class Game
   end
   
   def start_game
-    engine = GameEngine.new @players[:player1], @players[:player2], GameIO.new
+    engine = GameEngine.new @players[:player1], @players[:player2], @io
     engine.start_game
   end
 end
-
-game = Game.new
-game.show_menu
