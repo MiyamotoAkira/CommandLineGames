@@ -8,8 +8,8 @@ require_relative 'player'
 
 class Game
   def initialize io
-    @players = {player1: Player.new(get_player(:human), 'X'), player2: Player.new(get_player(:human), 'O')}
     @io = io
+    @players = {player1: Player.new(get_player(:human), 'X'), player2: Player.new(get_player(:human), 'O')}
   end
   
   def show_menu
