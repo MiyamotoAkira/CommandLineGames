@@ -58,12 +58,4 @@ class ComputerStrategyEasyTest < Minitest::Test
     computer = ComputerStrategyMedium.new
     assert_equal 6, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
-
-  def test_get_move_player_no_threatening_no_fork_available_use_threatening
-    test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
-    test_board.occupy_spot 0, @marks[:player1_mark]
-    test_board.occupy_spot 4, @marks[:player2_mark]
-    computer = ComputerStrategyMedium.new
-    assert_includes [0,1,2,3,5,6,7,8], computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
-  end
 end

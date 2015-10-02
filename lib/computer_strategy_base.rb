@@ -87,4 +87,9 @@ module ComputerStrategyBase
       return 2
     end
   end
+
+  def get_random(available_spaces)
+    n = rand(0..(available_spaces.count-1))
+    return available_spaces[n].to_i
+  end
 end

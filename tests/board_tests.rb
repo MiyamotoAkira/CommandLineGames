@@ -47,4 +47,17 @@ class BoardTest < MiniTest::Test
     board.occupy_spot 2, @player1_mark    
     assert_equal true, board.at_least_one_line_the_same
   end
+
+  def test_get_available_spaces_new_board
+    board = Board.new @player1_mark, @player2_mark
+    assert_equal 9, board.get_available_spaces.length
+  end
+
+  def test_get_available_spaces_some_occupied
+    board = Board.new @player1_mark, @player2_mark
+    board.occupy_spot 0, @player2_mark
+    board.occupy_spot 2, @player1_mark
+    board.occupy_spot 4, @player2_mark
+    assert_equal ["1","3","5","6","7","8"], board.get_available_spaces
+  end
 end

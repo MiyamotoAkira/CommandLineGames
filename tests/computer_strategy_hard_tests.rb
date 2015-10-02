@@ -50,6 +50,17 @@ class ComputerStrategyHardTest < Minitest::Test
 
   def test_get_move_computer_is_ready_to_score_score
     test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
+    test_board.occupy_spot 0, @marks[:player1_mark]
+    test_board.occupy_spot 1, @marks[:player2_mark]
+    test_board.occupy_spot 2, @marks[:player1_mark]
+    test_board.occupy_spot 4, @marks[:player2_mark]
+    test_board.occupy_spot 8, @marks[:player1_mark]
+    computer = ComputerStrategyHard.new
+    assert_equal 5, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
+  end
+
+    def test_get_move_computer_is_ready_to_score_score_second_option
+    test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
     test_board.occupy_spot 0, @marks[:player2_mark]
     test_board.occupy_spot 1, @marks[:player2_mark]
     test_board.occupy_spot 2, @marks[:player1_mark]

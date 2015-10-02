@@ -22,9 +22,7 @@ class ComputerStrategyMedium
 
     return possible_move if possible_move
 
-    n = rand(0..available_spaces.count)
-    return available_spaces[n].to_i
-
+    return get_random available_spaces
   end
 
   def check_possible_score(board, player)
