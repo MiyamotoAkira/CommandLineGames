@@ -100,13 +100,6 @@ class GameMenuTest < Minitest::Test
     assert_equal false, menu.validate_mark("aa")
   end
 
-  def test_validate_mark_same_as_other_mark_not_valid
-    skip
-    mockedIO = Minitest::Mock.new
-    menu = GameMenu.new mockedIO
-    assert_equal false, menu.validate_mark("9")
-  end
-
   def test_validate_mark_single_character_not_used_is_valid
     mockedIO = Minitest::Mock.new
     menu = GameMenu.new mockedIO
