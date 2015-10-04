@@ -27,7 +27,11 @@ class IoMock
   end
 
   def end_of_game
-    @called << :end_of_game
+    @called << {end_of_game: nil}
+  end
+
+  def is_a_tie
+    @called << {is_a_tie: nil}
   end
 
   def get_input
@@ -38,6 +42,10 @@ class IoMock
     @calls.shift
   end
 
+  def player_won player_number
+    @called << {player_won: player_number}
+  end
+
   def output_messages messages
     @last_messages = messages
   end
@@ -46,8 +54,16 @@ class IoMock
     @calls.push input
   end
 
+  def check_called_with_arguments method, arguments
+    return true if @called.index { |x| x.has_key? method and x[method] == arguments}
+
+    return false
+  end
+  
   def check_called method
-    @called.include? method
+     return true if @called.index { |x| x.has_key? method}
+
+    return false
   end
 
   def check_message_is_present expected
@@ -86,7 +102,7 @@ describe "I select to change Player 1 to Easy" do
   end
 end
 
-describe "Two Human Players play" do
+describe "Two Human Players play First one wins" do
   mock = IoMock.new
   mock.add_to_queue 1
   mock.add_to_queue "0"
@@ -96,9 +112,51 @@ describe "Two Human Players play" do
   mock.add_to_queue "2"
   mock.add_to_queue 9
 
-  it "Shows Game Over" do
+  it "Shows Game Over and Player 1 win" do
     game = Game.new mock
     game.show_menu
     mock.check_called(:end_of_game).must_equal true
+    mock.check_called_with_arguments(:player_won, 1).must_equal true
+  end
+end
+
+describe "Two Human Players play Second player wins" do
+  mock = IoMock.new
+  mock.add_to_queue 1
+  mock.add_to_queue "0"
+  mock.add_to_queue "4"
+  mock.add_to_queue "1"
+  mock.add_to_queue "3"
+  mock.add_to_queue "8"
+  mock.add_to_queue "5"
+  mock.add_to_queue 9
+
+  it "Shows Game Over and Player 2 win" do
+    game = Game.new mock
+    game.show_menu
+    mock.check_called(:end_of_game).must_equal true
+    mock.check_called_with_arguments(:player_won, 2).must_equal true
+  end
+end
+
+describe "Two Human Players play" do
+  mock = IoMock.new
+  mock.add_to_queue 1
+  mock.add_to_queue "0"
+  mock.add_to_queue "4"
+  mock.add_to_queue "1"
+  mock.add_to_queue "3"
+  mock.add_to_queue "5"
+  mock.add_to_queue "2"
+  mock.add_to_queue "6"
+  mock.add_to_queue "7"
+  mock.add_to_queue "8"
+  mock.add_to_queue 9
+
+  it "Shows Game Over and Is a Tie" do
+    game = Game.new mock
+    game.show_menu
+    mock.check_called(:end_of_game).must_equal true
+    mock.check_called(:is_a_tie).must_equal true
   end
 end

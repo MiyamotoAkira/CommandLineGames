@@ -7,6 +7,10 @@ class GameIO
     gets.chomp.to_i
   end
 
+  def player_won player_number
+    puts "Player #{player_number} has won!"
+  end
+  
   def end_of_game
     puts "Game over"
     puts "Press a key"
@@ -26,6 +30,10 @@ class GameIO
     puts "|_#{board[0]}_|_#{board[1]}_|_#{board[2]}_|\n|_#{board[3]}_|_#{board[4]}_|_#{board[5]}_|\n|_#{board[6]}_|_#{board[7]}_|_#{board[8]}_|\n"
   end
 
+  def is_a_tie
+    puts "The game is a tie"
+  end
+  
   def select_spot_info
     puts "Please select your spot."
   end

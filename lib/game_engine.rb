@@ -21,6 +21,11 @@ class GameEngine
       first_player = !first_player
     end
     @io.output_board @board.board_positions
+    if tie
+      @io.is_a_tie
+    else
+      @io.player_won (first_player ? 2 : 1)
+    end
     @io.end_of_game
   end
 
