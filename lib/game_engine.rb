@@ -7,34 +7,42 @@ class GameEngine
     @io = io
   end
 
-  def start_game
+  def start_screen
     @io.clear_screen
     @io.welcome
-    first_player = true
-    until game_is_over || tie
-      first_player  = process_move first_player
-    end
+  end
+
+  def end_of_game_screen is_first_player
     @io.output_board @board.board_positions
     if tie
       @io.is_a_tie
     else
-      @io.player_won (first_player ? 2 : 1)
+      @io.player_won (is_first_player ? 2 : 1)
     end
     @io.end_of_game
   end
-
-  def process_move first_player
-    @io.output_board @board.board_positions
-    @io.select_spot_info
-    player  = change_player first_player
-    player_spot = get_player_spot(player)
-    @io.clear_screen
-    @io.show_selections player_spot, first_player
-    !first_player
+  
+  def start_game
+    start_screen
+    is_first_player = true
+    until game_is_over || tie
+      is_first_player  = process_move is_first_player
+    end
+    end_of_game_screen is_first_player
   end
 
-  def change_player firstPlayer
-    if firstPlayer == true
+  def process_move is_first_player
+    @io.output_board @board.board_positions
+    @io.select_spot_info
+    player  = change_player is_first_player
+    player_spot = get_player_spot(player)
+    @io.clear_screen
+    @io.show_selections player_spot, is_first_player
+    !is_first_player
+  end
+
+  def change_player is_first_player
+    if is_first_player
       @player1
     else
       @player2
