@@ -1,4 +1,4 @@
-class HumanPlayer
+class HumanStrategy
   def initialize(io)
     @io = io
   end
