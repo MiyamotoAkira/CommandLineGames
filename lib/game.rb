@@ -3,7 +3,7 @@ require_relative 'game_menu'
 require_relative 'computer_strategy_hard'
 require_relative 'computer_strategy_medium'
 require_relative 'computer_strategy_easy'
-require_relative 'human_player'
+require_relative 'human_strategy'
 require_relative 'player'
 
 class Game
@@ -53,7 +53,7 @@ class Game
   def get_player type
     case type
     when :human
-      HumanPlayer.new @io
+      HumanStrategy.new @io
     when :easy
       ComputerStrategyEasy.new
     when :medium
