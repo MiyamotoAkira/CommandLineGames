@@ -12,13 +12,7 @@ class GameEngine
     @io.welcome
     first_player = true
     until game_is_over || tie
-      @io.output_board @board.board_positions
-      @io.select_spot_info
-      player  = change_player first_player
-      player_spot = get_player_spot(player)
-      @io.clear_screen
-      @io.show_selections player_spot, first_player
-      first_player = !first_player
+      first_player  = process_move first_player
     end
     @io.output_board @board.board_positions
     if tie
@@ -27,6 +21,16 @@ class GameEngine
       @io.player_won (first_player ? 2 : 1)
     end
     @io.end_of_game
+  end
+
+  def process_move first_player
+    @io.output_board @board.board_positions
+    @io.select_spot_info
+    player  = change_player first_player
+    player_spot = get_player_spot(player)
+    @io.clear_screen
+    @io.show_selections player_spot, first_player
+    !first_player
   end
 
   def change_player firstPlayer
@@ -40,11 +44,13 @@ class GameEngine
   def get_player_spot (player)
     spot = nil
     until spot
-      spot = player.get_move(@board, @player1.mark, @player2.mark) 
-      if @board.check_board_spot_availability(spot)
-        @board.occupy_spot spot, player.mark
-      else
-        spot = nil
+      spot = player.get_move(@board, @player1.mark, @player2.mark)
+      if spot != nil
+        if @board.check_board_spot_availability(spot)
+          @board.occupy_spot spot, player.mark
+        else
+          spot = nil
+        end
       end
     end
     spot
