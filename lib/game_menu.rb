@@ -83,7 +83,9 @@ class GameMenu
   def get_mark
     new_mark = nil
     until new_mark
-      puts "Introduce new mark:"
+      messages = []
+      messages << "Introduce new mark:"
+      @io.output_messages messages
       new_mark = @io.get_input
       unless validate_mark(new_mark)
         new_mark = nil

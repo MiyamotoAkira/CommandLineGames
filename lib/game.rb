@@ -64,7 +64,23 @@ class Game
   end
   
   def start_game
-    engine = GameEngine.new @players[:player1], @players[:player2], @io
-    engine.start_game
+    if players_have_same_mark?
+      show_info_same_mark
+    else
+      engine = GameEngine.new @players[:player1], @players[:player2], @io
+      engine.start_game
+    end
+  end
+
+  def players_have_same_mark?
+    @players[:player1].mark == @players[:player2].mark
+  end
+
+  def show_info_same_mark
+    messages = []
+    messages << "Both players have the same mark"
+    messages << "Please change one of the players"
+    @io.output_messages messages
+    @io.get_input
   end
 end

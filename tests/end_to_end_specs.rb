@@ -7,7 +7,7 @@ require_relative '../lib/game'
 class IoMock
   def initialize
     @calls = []
-    @last_messages = nil
+    @messages = []
     @called = []
   end
 
@@ -47,7 +47,7 @@ class IoMock
   end
 
   def output_messages messages
-    @last_messages = messages
+    @messages << messages
   end
 
   def add_to_queue input
@@ -66,8 +66,8 @@ class IoMock
     return false
   end
 
-  def check_message_is_present expected
-    @last_messages.each do |message|
+  def check_message_is_present expected, position_from_end = -1
+    @messages[position_from_end].each do |message|
       return true if message.include? expected
     end
     return false
@@ -158,5 +158,23 @@ describe "Two Human Players play" do
     game.show_menu
     mock.check_called(:end_of_game).must_equal true
     mock.check_called(:is_a_tie).must_equal true
+  end
+end
+
+describe "Select both players with the same mark" do
+  mock = IoMock.new
+  mock.add_to_queue 2
+  mock.add_to_queue 2
+  mock.add_to_queue 'D'
+  mock.add_to_queue 3
+  mock.add_to_queue 2
+  mock.add_to_queue 'D'
+  mock.add_to_queue 1
+  mock.add_to_queue 'd'
+  mock.add_to_queue 9
+  it "should not allow to play" do
+    game = Game.new mock
+    game.show_menu
+    mock.check_message_is_present("Both players have the same mark", -2).must_equal true
   end
 end
