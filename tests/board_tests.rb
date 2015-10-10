@@ -60,4 +60,24 @@ class BoardTest < MiniTest::Test
     board.occupy_spot 4, @player2_mark
     assert_equal ["1","3","5","6","7","8"], board.get_available_spaces
   end
+
+  def test_check_upper_left_corner_should_be_empty
+    board = Board.new @player1_mark, @player2_mark
+    assert_equal :empty, board.check_upper_left_corner
+  end
+
+  def test_check_upper_right_corner_should_be_empty
+    board = Board.new @player1_mark, @player2_mark
+    assert_equal :empty, board.check_upper_right_corner
+  end
+
+  def test_check_lower_left_corner_should_be_empty
+    board = Board.new @player1_mark, @player2_mark
+    assert_equal :empty, board.check_lower_left_corner
+  end
+
+  def test_check_lower_right_corner_should_be_empty
+    board = Board.new @player1_mark, @player2_mark
+    assert_equal :empty, board.check_lower_right_corner
+  end
 end

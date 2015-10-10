@@ -6,6 +6,7 @@ require_relative '../lib/computer_strategy_hard'
 
 class ComputerStrategyHardTest < Minitest::Test
   def setup
+    @board_size = 3
     @corners = [0,2,6,8]
     @marks = {player1_mark: 'O', player2_mark: 'X'}
   end
@@ -25,11 +26,11 @@ class ComputerStrategyHardTest < Minitest::Test
     assert_includes @corners, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
 
-  def test_get_move_second_move_no_center_chosen_center
+  def test_get_move_second_move_corner_occupied_occupy_opposing_corner
     test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
     test_board.occupy_spot 2, @marks[:player2_mark]
     computer = ComputerStrategyHard.new
-    assert_equal 4, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
+    assert_equal 6, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
   
   def test_get_move_second_move_center_is_occupied_use_corner
