@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 gem 'minitest', '>= 5.0.0'
-require_relative 'test_helper'
-require_relative '../lib/board'
-require_relative '../lib/computer_strategy_medium'
+require_relative '../test_helper'
+require_relative '../../lib/board'
+require_relative '../../lib/strategy/computer_medium'
 
-class ComputerStrategyMediumTest < Minitest::Test
+class ComputerMediumTest < Minitest::Test
   def setup
     @corners = [0,2,6,8]
     @marks = {player1_mark: 'O', player2_mark: 'X'}
@@ -14,28 +14,28 @@ class ComputerStrategyMediumTest < Minitest::Test
     test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
     test_board.occupy_spot 0, @marks[:player1_mark]
     test_board.occupy_spot 4, @marks[:player2_mark]
-    computer = ComputerStrategyMedium.new
+    computer = Strategy::ComputerMedium.new
     computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
     assert_equal 7, test_board.get_available_spaces.length  
   end
 
   def test_get_move_first_move_no_center_chosen_center
     test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
-    computer = ComputerStrategyMedium.new
+    computer = Strategy::ComputerMedium.new
     assert_equal 4, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
 
   def test_get_move_second_move_no_center_chosen_center
     test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
     test_board.occupy_spot 2, @marks[:player2_mark]
-    computer = ComputerStrategyMedium.new
+    computer = Strategy::ComputerMedium.new
     assert_equal 4, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
 
   def test_get_move_second_move_center_used_random_chosen
     test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
     test_board.occupy_spot 4, @marks[:player2_mark]
-    computer = ComputerStrategyMedium.new
+    computer = Strategy::ComputerMedium.new
     assert_includes [0,1,2,3,5,6,7,8], computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
 
@@ -44,7 +44,7 @@ class ComputerStrategyMediumTest < Minitest::Test
     test_board.occupy_spot 0, @marks[:player2_mark]
     test_board.occupy_spot 2, @marks[:player1_mark]
     test_board.occupy_spot 4, @marks[:player2_mark]
-    computer = ComputerStrategyMedium.new
+    computer = Strategy::ComputerMedium.new
     assert_equal 8, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
 
@@ -55,7 +55,7 @@ class ComputerStrategyMediumTest < Minitest::Test
     test_board.occupy_spot 2, @marks[:player1_mark]
     test_board.occupy_spot 4, @marks[:player2_mark]
     test_board.occupy_spot 8, @marks[:player1_mark]
-    computer = ComputerStrategyMedium.new
+    computer = Strategy::ComputerMedium.new
     assert_equal 5, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
 
@@ -63,8 +63,7 @@ class ComputerStrategyMediumTest < Minitest::Test
     test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
     test_board.occupy_spot 0, @marks[:player2_mark]
     test_board.occupy_spot 4, @marks[:player1_mark]
-    computer = ComputerStrategyMedium.new
+    computer = Strategy::ComputerMedium.new
     assert_includes [0,1,2,3,5,6,7,8], computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
-
 end

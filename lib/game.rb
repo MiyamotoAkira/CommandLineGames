@@ -1,9 +1,9 @@
 require_relative 'game_engine'
 require_relative 'game_menu'
-require_relative 'computer_strategy_hard'
-require_relative 'computer_strategy_medium'
-require_relative 'computer_strategy_easy'
-require_relative 'human_strategy'
+require_relative 'strategy/computer_hard'
+require_relative 'strategy/computer_medium'
+require_relative 'strategy/computer_easy'
+require_relative 'strategy/human'
 require_relative 'player'
 
 class Game
@@ -53,13 +53,13 @@ class Game
   def get_player type
     case type
     when :human
-      HumanStrategy.new @io
+      Strategy::Human.new @io
     when :easy
-      ComputerStrategyEasy.new
+      Strategy::ComputerEasy.new
     when :medium
-      ComputerStrategyMedium.new
+      Strategy::ComputerMedium.new
     when :hard
-      ComputerStrategyHard.new
+      Strategy::ComputerHard.new
     end
   end
   

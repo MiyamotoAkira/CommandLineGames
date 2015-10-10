@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 gem 'minitest', '>= 5.0.0'
-require_relative 'test_helper'
-require_relative '../lib/board'
-require_relative '../lib/computer_strategy_hard'
+require_relative '../test_helper'
+require_relative '../../lib/board'
+require_relative '../../lib/strategy/computer_hard'
 
-class ComputerStrategyHardTest < Minitest::Test
+class ComputerHardTest < Minitest::Test
   def setup
     @board_size = 3
     @corners = [0,2,6,8]
@@ -15,28 +15,28 @@ class ComputerStrategyHardTest < Minitest::Test
     test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
     test_board.occupy_spot 1, @marks[:player1_mark]
     test_board.occupy_spot 4, @marks[:player2_mark]
-    computer = ComputerStrategyHard.new
+    computer = Strategy::ComputerHard.new
     computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
     assert_equal 7, test_board.get_available_spaces.length
   end
 
   def test_get_move_first_move_no_center_chosen_center
     test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
-    computer = ComputerStrategyHard.new
+    computer = Strategy::ComputerHard.new
     assert_includes @corners, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
 
   def test_get_move_second_move_corner_occupied_occupy_opposing_corner
     test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
     test_board.occupy_spot 2, @marks[:player2_mark]
-    computer = ComputerStrategyHard.new
+    computer = Strategy::ComputerHard.new
     assert_equal 6, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
   
   def test_get_move_second_move_center_is_occupied_use_corner
     test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
     test_board.occupy_spot 4, @marks[:player2_mark]
-    computer = ComputerStrategyHard.new
+    computer = Strategy::ComputerHard.new
     assert_includes @corners, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
 
@@ -45,7 +45,7 @@ class ComputerStrategyHardTest < Minitest::Test
     test_board.occupy_spot 0, @marks[:player2_mark]
     test_board.occupy_spot 2, @marks[:player1_mark]
     test_board.occupy_spot 4, @marks[:player2_mark]
-    computer = ComputerStrategyHard.new
+    computer = Strategy::ComputerHard.new
     assert_equal 8, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
 
@@ -56,7 +56,7 @@ class ComputerStrategyHardTest < Minitest::Test
     test_board.occupy_spot 2, @marks[:player1_mark]
     test_board.occupy_spot 4, @marks[:player2_mark]
     test_board.occupy_spot 8, @marks[:player1_mark]
-    computer = ComputerStrategyHard.new
+    computer = Strategy::ComputerHard.new
     assert_equal 5, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
 
@@ -67,7 +67,7 @@ class ComputerStrategyHardTest < Minitest::Test
     test_board.occupy_spot 2, @marks[:player1_mark]
     test_board.occupy_spot 4, @marks[:player2_mark]
     test_board.occupy_spot 8, @marks[:player1_mark]
-    computer = ComputerStrategyHard.new
+    computer = Strategy::ComputerHard.new
     assert_equal 5, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
 
@@ -78,7 +78,7 @@ class ComputerStrategyHardTest < Minitest::Test
     test_board.occupy_spot 2, @marks[:player1_mark]
     test_board.occupy_spot 5, @marks[:player2_mark]
     test_board.occupy_spot 8, @marks[:player2_mark]
-    computer = ComputerStrategyHard.new
+    computer = Strategy::ComputerHard.new
     assert_equal 6, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
 
@@ -86,7 +86,7 @@ class ComputerStrategyHardTest < Minitest::Test
     test_board = Board.new @marks[:player1_mark], @marks[:player2_mark]
     test_board.occupy_spot 0, @marks[:player1_mark]
     test_board.occupy_spot 4, @marks[:player2_mark]
-    computer = ComputerStrategyHard.new
+    computer = Strategy::ComputerHard.new
     assert_equal 1, computer.get_move(test_board, @marks[:player1_mark], @marks[:player2_mark])
   end
 
