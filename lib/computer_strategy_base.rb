@@ -2,33 +2,33 @@ module ComputerStrategyBase
 
   def check_threatening(board, player_mark)
     available_spaces = board.get_available_spaces
-    available_spaces.each do |as|
-      left_to_assign = available_spaces - [as]
-      board.occupy_spot as.to_i, player_mark
+    available_spaces.each do |space|
+      left_to_assign = available_spaces - [space]
+      board.occupy_spot space.to_i, player_mark
       left_to_assign.each do |cell|
         board.occupy_spot cell.to_i, player_mark
         if board.at_least_one_line_the_same
-          board.occupy_spot as.to_i, as
+          board.occupy_spot space.to_i, space
           board.occupy_spot cell.to_i, cell
-          return as.to_i
+          return space.to_i
         end
         board.occupy_spot cell.to_i, cell
       end
 
-      board.occupy_spot as.to_i, as
+      board.occupy_spot space.to_i, space
     end
     nil
   end        
   
   def check_possible_score(board, player_mark)
     available_spaces = board.get_available_spaces
-    available_spaces.each do |as|
-      board.occupy_spot as.to_i, player_mark
+    available_spaces.each do |space|
+      board.occupy_spot space.to_i, player_mark
       if board.at_least_one_line_the_same
-        board.occupy_spot as.to_i, as
-        return as.to_i
+        board.occupy_spot space.to_i, space
+        return space.to_i
       else
-        board.occupy_spot as.to_i, as
+        board.occupy_spot space.to_i, space
       end
     end
     nil     
@@ -36,9 +36,9 @@ module ComputerStrategyBase
   
   def check_possible_fork(board, player_mark)
     available_spaces = board.get_available_spaces
-    available_spaces.each do |as|
-      left_to_assign = available_spaces - [as]
-      board.occupy_spot as.to_i, player_mark
+    available_spaces.each do |space|
+      left_to_assign = available_spaces - [space]
+      board.occupy_spot space.to_i, player_mark
       sum = 0
       left_to_assign.each do |cell|
         board.occupy_spot cell.to_i,  player_mark
@@ -47,9 +47,9 @@ module ComputerStrategyBase
         end
         board.occupy_spot cell.to_i, cell
       end
-      board.occupy_spot as.to_i, as
+      board.occupy_spot space.to_i, space
       if sum > 1
-        return as.to_i
+        return space.to_i
       end
     end
 
@@ -58,13 +58,13 @@ module ComputerStrategyBase
 
   def check_other_threatening(board, player_mark)
     available_spaces = board.get_available_spaces
-    available_spaces.each do |as|
-      board.occupy_spot as.to_i, player_mark
+    available_spaces.each do |space|
+      board.occupy_spot space.to_i, player_mark
       if board.at_least_one_line_the_same
-        board.occupy_spot as.to_i, as
-        return as.to_i
+        board.occupy_spot space.to_i, space
+        return space.to_i
       else
-        board.occupy_spot as.to_i, as
+        board.occupy_spot space.to_i, space
       end
     end
     nil
