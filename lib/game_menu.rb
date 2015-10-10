@@ -11,6 +11,7 @@ class GameMenu
     messages << "1 - Start a game"
     messages << "2 - Player 1: #{player1.type}, mark: #{player1.mark}"
     messages << "3 - Player 2: #{player2.type}, mark: #{player2.mark}"
+    messages << ""
     messages << "9 - Exit the game"
     @io.output_messages messages
   end
