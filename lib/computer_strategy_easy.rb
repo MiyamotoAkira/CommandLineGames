@@ -9,13 +9,11 @@ class ComputerStrategyEasy
   include ComputerStrategyBase
   
   def get_move(board, this_players_mark, other_players_mark)
-    available_spaces = board.get_available_spaces
-
     possible_move = check_possible_score(board, this_players_mark)
 
     return possible_move if possible_move
 
-    return get_random available_spaces
+    return get_random board.get_available_spaces
   end
 
   def to_s
