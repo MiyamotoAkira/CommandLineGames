@@ -9,11 +9,11 @@ The original code is property of 8th Light
 
 All modifications my own. License to be determined. Therefore, for the time being, do not reuse.
 
-### Runnig the game
+### Running the game
 
 To run the game you will need either to use
 *ruby tictactoe.rb*
-or your can give execution permissions to tictactoe.rb with *chmod +x* so you can use it directly as ./tictactoe.rb
+or to give execution permissions to tictactoe.rb with *chmod +x* so you can use it directly as ./tictactoe.rb
 
 ### Tests
 
