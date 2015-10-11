@@ -9,13 +9,19 @@ The original code is property of 8th Light
 
 All modifications my own. License to be determined. Therefore, for the time being, do not reuse.
 
-### Runnig the game
+### Running the game
 
-Run the game in lib/game.rb
+To run the game you will need either to use
+*ruby tictactoe.rb*
+or to give execution permissions to tictactoe.rb with *chmod +x* so you can use it directly as ./tictactoe.rb
 
 ### Tests
 
-The test are located under the tests folder. To run the whole suite you can just call 'rake' from the top folder. You can also get the test coverage using 'rake coverage'
+The test are located under the tests folder. 
+
+To run jus the unit tests use *rake*. You can run spec tests with *rake spec*. Or the whole suite of tests with *rake all*
+
+You can get the coverage of unit tests with *rake coverage* Or the coverage of all tests with *rake coverage_all*
 
 ### Steps taken
 
