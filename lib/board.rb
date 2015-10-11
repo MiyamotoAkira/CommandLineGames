@@ -4,6 +4,7 @@ class Board
   def initialize player1_mark, player2_mark, size = 3
     @size = size
     setup_board
+    setup_corners
     @player1_mark = player1_mark
     @player2_mark = player2_mark
   end
@@ -13,7 +14,9 @@ class Board
     (0...(@size*@size)).each do |position|
       @board_positions << position.to_s
     end
+  end
 
+  def setup_corners
     @upper_left_corner = 0
     @upper_right_corner = @size - 1
     @lower_left_corner = (@size * @size) - @size
@@ -21,7 +24,7 @@ class Board
   end
 
   def check_board_spot_availability(spot)
-    @board_positions[spot] != @player1_mark && @board_positions[spot] != @player2_mark
+    is_not_occupied? @board_positions[spot]
   end
 
   def occupy_spot spot, mark
@@ -63,19 +66,23 @@ class Board
   def get_positions_for_line line
     positions = []
     (0...@size).each do |column|
-      positions << (line * @size) + column
-    end
-    positions
-  end
-  
-  def get_positions_for_column column
-    positions = []
-    (0...@size).each do |line|
-      positions << (line * @size) + column
+      positions << calculate_position_on_square(line, column)
     end
     positions
   end
 
+  def get_positions_for_column column
+    positions = []
+    (0...@size).each do |line|
+      positions << calculate_position_on_square(line, column)
+    end
+    positions
+  end
+
+  def calculate_position_on_square (line, column)
+    (line * @size) + column
+  end
+  
   def get_positions_for_diagonal
     positions = []
     (0...@size).each_with_index do |line, index|
@@ -93,38 +100,43 @@ class Board
   end
     
   def tie
-    @board_positions.all? { |s| s == @player1_mark || s == @player2_mark }
+    @board_positions.all? { |space| is_occupied? space }
   end
 
   def get_available_spaces
     available_spaces = []
-    @board_positions.each do |s|
-      if s != @player1_mark && s != @player2_mark
-        available_spaces << s
-      end
+    @board_positions.each do |space|
+      available_spaces << space if is_not_occupied? space
     end
     available_spaces
   end
 
+  def is_occupied? space
+    space == @player1_mark || space == @player2_mark
+  end
+  
+  def is_not_occupied? space
+    space != @player1_mark && space != @player2_mark
+  end
 
-  def check_corner(corner)
-    return :empty if @board_positions[corner] != @player1_mark && @board_positions[corner] != @player2_mark
-    return :occupied
+  def is_corner_occupied? corner
+    return :empty if is_not_occupied? @board_positions[corner]
+    :occupied
   end
   
   def check_upper_left_corner
-    check_corner @upper_left_corner
+    is_corner_occupied? @upper_left_corner
   end
   
   def check_upper_right_corner
-    check_corner @upper_right_corner
+    is_corner_occupied? @upper_right_corner
   end
   
   def check_lower_left_corner
-    check_corner @lower_left_corner
+    is_corner_occupied? @lower_left_corner
   end
   
   def check_lower_right_corner
-    check_corner @lower_right_corner
+    is_corner_occupied? @lower_right_corner
   end
 end
